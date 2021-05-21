@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="soft_red">#BD1A41</color>
+    <color name="normal_red">#F5C30909</color>
+    <color name="dakr_red">#801D23</color>
+    <color name="red">#D13C31</color>
+    <color name="soft_red_2">#BA625B</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="backgrounf">#403D3D</color>
+
+</resources>

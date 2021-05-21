@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgrounf"
+    tools:context=".ComicDetail">
+
+    <ImageView
+        android:id="@+id/iv_back_comic"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--#675D5E-->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/transparent_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.347" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnv_comic_detail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/dakr_red"
+        app:itemIconSize="25dp"
+        app:itemIconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:menu="@menu/menu_navbar"
+
+        />
+
+
+
+    <ImageView
+        android:id="@+id/iv_det_port"
+        android:layout_width="110dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_det_chapters"
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:layout_marginTop="204dp"
+        app:layout_constraintBottom_toTopOf="@+id/navbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_back_comic"
+        app:layout_constraintVertical_bias="2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="249dp"
+        android:layout_height="120dp"
+        android:background="@drawable/transparent_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.944"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.07">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_comic_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_back_comic" />
+
+
+    <TextView
+        android:id="@+id/tv_comic_tags"
+        android:layout_width="234dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="130dp"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_back_comic" />
+
+    <TextView
+        android:id="@+id/tv_comic_status"
+        android:layout_width="235dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="105dp"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_back_comic" />
+
+    <TextView
+        android:id="@+id/tv_comic_author"
+        android:layout_width="236dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="80dp"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_back_comic" />
+
+    <TextView
+        android:id="@+id/tv_comic_desc"
+        android:layout_width="350dp"
+        android:layout_height="107dp"
+        android:layout_marginTop="260dp"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_back_comic" />
+
+
+    <Button
+        android:id="@+id/btn_favorites"
+        android:layout_width="170dp"
+        android:layout_height="35dp"
+        android:textSize="10dp"
+        android:text="Anadir Favorito"
+        android:textColor="@color/white"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="230dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_maps"
+        android:layout_width="170dp"
+        android:layout_height="35dp"
+        android:text="Donde Comprar"
+        android:textSize="10dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

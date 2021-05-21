@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "923419552305",
+    "project_id": "cheemsproject",
+    "storage_bucket": "cheemsproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923419552305:android:ee7d6fe8a19f0d3f51c310",
+        "android_client_info": {
+          "package_name": "com.example.proyecto_2bim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923419552305-b4isg5ifm1si3q4sc1elln6poiuieb8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqmQF5pOcCGSc0wEZtPi2XvSDv4v3G7RY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923419552305-b4isg5ifm1si3q4sc1elln6poiuieb8d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

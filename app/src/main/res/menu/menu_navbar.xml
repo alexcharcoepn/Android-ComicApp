@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/go_comics"
+        android:title=""
+        android:icon="@drawable/ic_comics"
+        />
+    <item
+        android:id="@+id/go_settings"
+        android:title=""
+        android:icon="@drawable/ic_person_white"
+
+        />
+
+    <item
+        android:id="@+id/go_search"
+        android:title=""
+        android:icon="@drawable/ic_search"
+
+        />
+    <item
+        android:id="@+id/go_favorites"
+        android:title=""
+        android:icon="@drawable/ic_star"
+        />
+    <item
+        android:id="@+id/go_back"
+        android:title=""
+        android:icon="@drawable/ic_back"
+        />
+
+</menu>
