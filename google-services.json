@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "42280457647",
+    "project_id": "comics-reader-back",
+    "storage_bucket": "comics-reader-back.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42280457647:android:dfe60a2ae821dfb3304b5a",
+        "android_client_info": {
+          "package_name": "acc.mobile.comic_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42280457647-c4s26aa1a0pgbjgfgvcpldgjkgbib4lp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBInT5fANiV7zRxSnwJS9PXekgXW7D7WXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42280457647-c4s26aa1a0pgbjgfgvcpldgjkgbib4lp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
