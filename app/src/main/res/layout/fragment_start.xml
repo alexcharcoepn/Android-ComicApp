@@ -30,12 +30,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:hint="@string/login_fhome_password_hint"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mlogin_et_email_"
-        app:startIconDrawable="@drawable/baseline_password_24"
-        app:endIconMode="password_toggle">
+        app:startIconDrawable="@drawable/baseline_password_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -43,6 +43,34 @@
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/mlogin_btn_singin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:width="350dp"
+        android:text="@string/login_fhome_btn_signin"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mlogin_et_password" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/login_fhome_tv_signin_methods"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mlogin_btn_singin" />
+
+    <include
+        layout="@layout/login_auth_methods"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="136dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
