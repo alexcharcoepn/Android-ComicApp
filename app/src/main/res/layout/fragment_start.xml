@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -67,10 +68,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mlogin_btn_singin" />
 
-    <include
-        layout="@layout/login_auth_methods"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="136dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:divider="@drawable/divider"
+        android:showDividers="middle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
+        <ImageButton
+            android:id="@+id/mlogin_btn_auth_google"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/rounded_border"
+            android:padding="4dp"
+            app:srcCompat="@drawable/logo_google" />
+
+        <ImageButton
+            android:id="@+id/mlogin_btn_auth_facebook"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:scaleType="fitCenter"
+            android:padding="4dp"
+            android:background="@drawable/rounded_border"
+            app:srcCompat="@drawable/logo_facebook" />
+
+        <ImageButton
+            android:id="@+id/mlogin_btn_auth_twitter"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:scaleType="fitCenter"
+            android:padding="4dp"
+            android:background="@drawable/rounded_border"
+            app:srcCompat="@drawable/logo_twitter" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
