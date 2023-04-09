@@ -13,4 +13,8 @@
         android:bottomLeftRadius="8dip"
         android:topRightRadius="8dip"
         android:topLeftRadius="8dip" />
+    <gradient
+        android:type="linear"
+        android:startColor="@color/auth_method"
+        android:endColor="@android:color/transparent" />
 </shape>

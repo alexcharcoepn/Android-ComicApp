@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--Login Module-->
-    <color name="auth_method">#B6B6B6</color>
+    <color name="auth_method">#51D8D8D8</color>
+    <color name="auth_btn1">#9C3FE4</color>
+    <color name="auth_btn2">#C65647</color>
 
 </resources>

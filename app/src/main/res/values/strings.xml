@@ -28,5 +28,7 @@
     <string name="login_fhome_password_hint">Password</string>
     <string name="login_fhome_btn_signin">Sign In</string>
     <string name="login_fhome_tv_signin_methods">Or continue with</string>
+    <string name="login_fhome_tv_welcome1">Welcome to your daily Comic</string>
+    <string name="login_fhome_tv_welcome2">Find the latest updates of your favorite comics/mangas</string>
 
 </resources>
