@@ -19,4 +19,16 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Login-->
+    <string name="login_fhome">Login/Sign-Up</string>
+    <string name="login_fhome_email_hint">Email</string>
+    <string name="login_fhome_password_hint">Password</string>
+    <string name="login_fhome_btn_signin">Sign In</string>
+    <string name="login_fhome_tv_signin_methods">Or continue with</string>
+    <string name="login_fhome_tv_welcome1">Welcome to your daily Comic</string>
+    <string name="login_fhome_tv_welcome2">Find the latest updates of your favorite comics &amp; mangas</string>
+
 </resources>
