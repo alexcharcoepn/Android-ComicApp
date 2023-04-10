@@ -42,7 +42,7 @@
         android:id="@+id/mlogin_et_email_"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="12dp"
         android:hint="@string/login_fhome_email_hint"
         app:layout_constraintBottom_toTopOf="@+id/mlogin_et_password"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -70,7 +70,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
