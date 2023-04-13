@@ -4,6 +4,10 @@ plugins {
 
     // Add the Google services Gradle plugin
     id 'com.google.gms.google-services'
+
+    //DataBinding plugins
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
