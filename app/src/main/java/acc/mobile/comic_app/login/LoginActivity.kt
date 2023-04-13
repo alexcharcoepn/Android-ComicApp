@@ -1,4 +1,4 @@
-package acc.mobile.comic_app
+package acc.mobile.comic_app.login
 
 import acc.mobile.comic_app.databinding.ActivityLoginBinding
 import acc.mobile.comic_app.databinding.ActivityMainBinding

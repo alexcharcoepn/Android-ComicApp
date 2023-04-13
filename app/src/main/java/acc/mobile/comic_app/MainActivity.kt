@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import acc.mobile.comic_app.databinding.ActivityMainBinding
+import acc.mobile.comic_app.login.LoginActivity
 import android.content.Intent
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         Log.d("MAIN","Current User: ${currentUser}")
         if(currentUser == null){
-            val intent = Intent(this,LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
