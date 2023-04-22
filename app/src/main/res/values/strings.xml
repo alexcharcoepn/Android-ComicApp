@@ -32,4 +32,9 @@
     <string name="login_fhome_tv_welcome1">Welcome to your daily Comic</string>
     <string name="login_fhome_tv_welcome2">Find the latest updates of your favorite comics &amp; mangas</string>
 
+
+
+    <!--SECRETS-->
+    <string name="secret_server_client_id">42280457647-okaci7ijpghlk861bg886n2p2hbermk4.apps.googleusercontent.com</string>
+
 </resources>

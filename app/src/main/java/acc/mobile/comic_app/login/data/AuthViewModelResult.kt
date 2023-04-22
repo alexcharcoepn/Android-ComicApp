@@ -1,4 +1,4 @@
-package acc.mobile.comic_app.login.viewmodel
+package acc.mobile.comic_app.login.data
 
 import acc.mobile.comic_app.enums.AsyncResultEnum
 

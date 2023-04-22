@@ -120,23 +120,6 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/logo_google" />
 
-        <ImageButton
-            android:id="@+id/mlogin_btn_auth_facebook"
-            android:layout_width="64dp"
-            android:layout_height="45dp"
-            android:background="@drawable/rounded_border"
-            android:padding="4dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/logo_facebook" />
-
-        <ImageButton
-            android:id="@+id/mlogin_btn_auth_twitter"
-            android:layout_width="64dp"
-            android:layout_height="45dp"
-            android:background="@drawable/rounded_border"
-            android:padding="6dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/logo_twitter" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
