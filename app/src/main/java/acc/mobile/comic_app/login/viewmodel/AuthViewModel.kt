@@ -1,10 +1,6 @@
 package acc.mobile.comic_app.login.viewmodel
 
 import acc.mobile.comic_app.enums.AsyncResultEnum
-import acc.mobile.comic_app.services.retrofit.MarsPhoto
-import acc.mobile.comic_app.services.retrofit.RetrofitService
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,11 +22,8 @@ class AuthViewModel : ViewModel() {
                     if (it.isSuccessful) {
                         _authResult.value = AuthViewModelResult(AsyncResultEnum.SUCCESS,"Welcome")
                     } else {
-                        _authResult.value = AuthViewModelResult(AsyncResultEnum.FAILURE,"Error: ${it.exception?.message}")
+                        _authResult.value = AuthViewModelResult(AsyncResultEnum.FAILURE,"${it.exception?.message}")
                     }
-                }
-                .addOnFailureListener {
-                    _authResult.value = AuthViewModelResult(AsyncResultEnum.ERROR,"Error: ${it.message}")
                 }
         }
     }
@@ -39,15 +32,9 @@ class AuthViewModel : ViewModel() {
         auth.createUserWithEmailAndPassword(authData.email, authData.password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Log.d(
-                        "services-network:AuthViewModel:createPasswordAuthAccount",
-                        "User created successfully"
-                    )
+
                 } else {
-                    Log.w(
-                        "services-network:AuthViewModel:createPasswordAuthAccount",
-                        "Error: ${it.result}"
-                    )
+
                 }
             }
     }
