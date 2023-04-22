@@ -70,9 +70,9 @@ class StartFragment : Fragment() {
             launcher.launch(signInIntent)
         }
 
-        _binding!!.mloginBtnSignUpEmail.setOnClickListener {
-            val action = SignUpManualFragmentDirections.actionStartToUserdata()
-            activity?.findNavController(R.id.navhost_fragment_auth)?.navigate(action)
+            _binding!!.mloginBtnSignUpEmail.setOnClickListener {
+                val action = SignUpManualFragmentDirections.actionStartToUserdata()
+                activity?.findNavController(R.id.navhost_fragment_auth)?.navigate(action)
         }
 
         auth = Firebase.auth
