@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/login_navigation"
+    android:id="@+id/auth_navigation"
     app:startDestination="@+id/nav_auth_start">
 
 
@@ -11,6 +11,12 @@
         android:name="acc.mobile.comic_app.login.fragments.StartFragment"
         android:label="@string/login_fhome"
         tools:layout="@layout/fragment_start" />
+
+    <fragment
+        android:id="@+id/nav_auth_userdata"
+        android:name="acc.mobile.comic_app.login.fragments.AuthDataFragment"
+        android:label="@string/login_fuserdata"
+        tools:layout="@layout/fragment_auth_data" />
 
 
 </navigation>

@@ -1,6 +1,7 @@
 package acc.mobile.comic_app.login.viewmodel
 
 import acc.mobile.comic_app.enums.AsyncResultEnum
+import acc.mobile.comic_app.login.data.AuthData
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

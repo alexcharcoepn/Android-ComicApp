@@ -8,7 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import acc.mobile.comic_app.databinding.FragmentStartBinding
 import acc.mobile.comic_app.enums.AsyncResultEnum
-import acc.mobile.comic_app.login.viewmodel.AuthData
+import acc.mobile.comic_app.login.data.AuthData
+import acc.mobile.comic_app.login.data.AuthProviderEnum
 import acc.mobile.comic_app.login.viewmodel.AuthViewModel
 import acc.mobile.comic_app.login.viewmodel.AuthViewModelResult
 import android.content.Intent
@@ -61,6 +62,10 @@ class StartFragment : Fragment() {
         return binding.root
     }
 
+    private fun thirdProviderLogin(provider:AuthProviderEnum){
+        Log.d("farg-start:auth-provider","Provider: ${provider}")
+
+    }
 
     private fun logIn() {
         val email = binding.mloginEtEmail.editText?.text.toString()
