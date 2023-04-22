@@ -22,26 +22,7 @@ class AuthViewModel : ViewModel() {
     val authResult: LiveData<AuthViewModelResult> = _authResult
 
     fun logInWithEmailAndPassword(authData: AuthData) {
-        viewModelScope.launch {
-            auth.signInWithEmailAndPassword(authData.email, authData.password)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        _authResult.value = AuthViewModelResult(AsyncResultEnum.SUCCESS,"Welcome")
-                    } else {
-                        _authResult.value = AuthViewModelResult(AsyncResultEnum.FAILURE,"${it.exception?.message}")
-                    }
-                }
-        }
+
     }
 
-    fun createPasswordAuthAccount(authData: AuthData) {
-        auth.createUserWithEmailAndPassword(authData.email, authData.password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-
-                } else {
-
-                }
-            }
-    }
 }

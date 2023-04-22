@@ -120,6 +120,15 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/logo_google" />
 
+        <ImageButton
+            android:id="@+id/mlogin_btn_signup_email"
+            android:layout_width="64dp"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_border"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/baseline_email_24" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

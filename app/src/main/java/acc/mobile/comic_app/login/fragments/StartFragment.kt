@@ -14,7 +14,6 @@ import acc.mobile.comic_app.login.viewmodel.AuthViewModel
 import acc.mobile.comic_app.login.data.AuthViewModelResult
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -34,18 +34,14 @@ class StartFragment : Fragment() {
     private var _binding: FragmentStartBinding? = null
     private val binding get() = _binding!!
 
-    private val authViewModel: AuthViewModel by activityViewModels()
-
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            Log.d("start-frag","Activity Result: ${it.data}")
             if (it.resultCode == Activity.RESULT_OK) {
-                Log.d("start-frag","LogIn Google SUCESSFUL: ${it.data}")
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
-                handleSignIn(task)
+                handleGoogleSignIn(task)
             }
         }
 
@@ -56,7 +52,7 @@ class StartFragment : Fragment() {
             .requestEmail()
             .build()
 
-        googleSignInClient = GoogleSignIn.getClient(activity!!, gso)
+        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
     }
 
     override fun onCreateView(
@@ -68,65 +64,32 @@ class StartFragment : Fragment() {
 
         _binding!!.mloginBtnSingin.setOnClickListener {
             _binding!!.mloginBtnSingin.onEditorAction(EditorInfo.IME_ACTION_DONE)
-            email_passwordLogIn()
+            handleEmailPasswordSignIn()
         }
 
         _binding!!.mloginBtnAuthGoogle.setOnClickListener {
-            Log.d("start-frag","LogIn Google")
             val signInIntent = googleSignInClient.signInIntent
             launcher.launch(signInIntent)
         }
 
         auth = Firebase.auth
 
-        //Observers
-        val authObserver = Observer<AuthViewModelResult> {
-            Log.d("start-frag", "Observer res: ${it}")
-
-            Toast.makeText(activity, "${it.message}", Toast.LENGTH_SHORT).show()
-            when (it.result) {
-                AsyncResultEnum.SUCCESS -> {
-                    val intent = Intent(activity, MainActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
-                }
-                else -> {
-                }
-            }
-        }
-
-        //Subscriptions to observables
-        authViewModel.authResult.observe(this, authObserver)
-
         return binding.root
     }
 
 
-    private fun handleSignIn(task: Task<GoogleSignInAccount>) {
+    private fun handleGoogleSignIn(task: Task<GoogleSignInAccount>) {
         if (task.isSuccessful) {
             val account: GoogleSignInAccount? = task.result
-
-            Log.d("start-frag","LogIn Google::handleSignIn: ${task.result}")
             if (account != null) {
-                updateUI(account)
+                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                val authResult = auth.signInWithCredential(credential)
+                handleUI(authResult)
             }
         }
     }
 
-    private fun updateUI(account: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-
-        Log.d("start-frag","LogIn Google::udpateUI: ${credential}")
-        auth.signInWithCredential(credential).addOnCompleteListener {
-            if (it.isSuccessful) {
-                Toast.makeText(activity, "INSIDE", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(activity, it.exception.toString(), Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun email_passwordLogIn() {
+    private fun handleEmailPasswordSignIn(){
         val email = binding.mloginEtEmail.editText?.text.toString()
         val password = binding.mloginEtPassword.editText?.text.toString()
 
@@ -134,10 +97,16 @@ class StartFragment : Fragment() {
             Toast.makeText(activity, "Invalid values", Toast.LENGTH_SHORT).show()
             return
         }
+        val authResult = auth.signInWithEmailAndPassword(email, password)
+        handleUI(authResult)
+    }
 
-        val loginAuthData = AuthData(email, password)
-
-        this.authViewModel.logInWithEmailAndPassword(loginAuthData)
+    private fun handleUI(authResult:Task<AuthResult>) {
+        authResult.addOnCompleteListener {
+            if (it.isSuccessful) {
+                Toast.makeText(activity, "INSIDE", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onDestroyView() {
