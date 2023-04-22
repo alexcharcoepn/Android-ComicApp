@@ -1,6 +1,5 @@
 package acc.mobile.comic_app.login.fragments
 
-import acc.mobile.comic_app.MainActivity
 import acc.mobile.comic_app.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,17 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import acc.mobile.comic_app.databinding.FragmentStartBinding
-import acc.mobile.comic_app.enums.AsyncResultEnum
-import acc.mobile.comic_app.login.data.AuthData
-import acc.mobile.comic_app.login.viewmodel.AuthViewModel
-import acc.mobile.comic_app.login.data.AuthViewModelResult
+import acc.mobile.comic_app.login.LoginActivity
 import android.app.Activity
-import android.content.Intent
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -53,6 +50,7 @@ class StartFragment : Fragment() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+
     }
 
     override fun onCreateView(
@@ -72,6 +70,11 @@ class StartFragment : Fragment() {
             launcher.launch(signInIntent)
         }
 
+        _binding!!.mloginBtnSignUpEmail.setOnClickListener {
+            val action = SignUpManualFragmentDirections.actionStartToUserdata()
+            activity?.findNavController(R.id.navhost_fragment_auth)?.navigate(action)
+        }
+
         auth = Firebase.auth
 
         return binding.root
@@ -84,7 +87,7 @@ class StartFragment : Fragment() {
             if (account != null) {
                 val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                 val authResult = auth.signInWithCredential(credential)
-                handleUI(authResult)
+                navigateToUserData(authResult)
             }
         }
     }
@@ -98,10 +101,10 @@ class StartFragment : Fragment() {
             return
         }
         val authResult = auth.signInWithEmailAndPassword(email, password)
-        handleUI(authResult)
+
     }
 
-    private fun handleUI(authResult:Task<AuthResult>) {
+    private fun navigateToUserData(authResult:Task<AuthResult>) {
         authResult.addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(activity, "INSIDE", Toast.LENGTH_SHORT).show()

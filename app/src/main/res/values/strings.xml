@@ -23,8 +23,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--Login-->
-    <string name="login_fhome">Login/Sign-Up</string>
+    <string name="login_fhome">Log-In</string>
     <string name="login_fuserdata">User Data</string>
+    <string name="login_fsignup">Sign-Up</string>
     <string name="login_fhome_email_hint">Email</string>
     <string name="login_fhome_password_hint">Password</string>
     <string name="login_fhome_btn_signin">Sign In</string>

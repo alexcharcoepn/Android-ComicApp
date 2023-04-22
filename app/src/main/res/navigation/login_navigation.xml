@@ -10,7 +10,14 @@
         android:id="@+id/nav_auth_start"
         android:name="acc.mobile.comic_app.login.fragments.StartFragment"
         android:label="@string/login_fhome"
-        tools:layout="@layout/fragment_start" />
+        tools:layout="@layout/fragment_start">
+        <action
+            android:id="@+id/action_start_to_userdata"
+            app:destination="@id/nav_auth_userdata" />
+        <action
+            android:id="@+id/action_start_to_manual_signup"
+            app:destination="@id/nav_auth_signup_manual" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_auth_userdata"
@@ -20,8 +27,13 @@
 
     <fragment
         android:id="@+id/nav_auth_signup_manual"
-        android:name="acc.mobile.comic_app.login.fragments.AuthDataFragment"
-        android:label="@string/login_fuserdata"
-        tools:layout="@layout/fragment_auth_data" />
+        android:name="acc.mobile.comic_app.login.fragments.SignUpManualFragment"
+        android:label="@string/login_fsignup"
+        tools:layout="@layout/fragment_auth_data">
+
+        <action
+            android:id="@+id/action_start_to_userdata"
+            app:destination="@id/nav_auth_userdata" />
+    </fragment>
 
 </navigation>
