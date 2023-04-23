@@ -10,25 +10,18 @@ import android.view.ViewGroup
 import acc.mobile.comic_app.databinding.FragmentSignUpManualBinding
 import acc.mobile.comic_app.isValidEmail
 import acc.mobile.comic_app.isValidPassword
-import android.graphics.Color
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class SignUpManualFragment : Fragment() {
-    private lateinit var _binding: FragmentSignUpManualBinding
+    private var _binding: FragmentSignUpManualBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var auth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +29,8 @@ class SignUpManualFragment : Fragment() {
     ): View {
         _binding = FragmentSignUpManualBinding.inflate(inflater, container, false)
 
-        _binding.authBtnSignup.setOnClickListener {
-            _binding.authBtnSignup.onEditorAction(EditorInfo.IME_ACTION_DONE)
+        _binding!!.authBtnSignup.setOnClickListener {
+            _binding!!.authBtnSignup.onEditorAction(EditorInfo.IME_ACTION_DONE)
             this.signUpHandler()
         }
 
@@ -71,9 +64,9 @@ class SignUpManualFragment : Fragment() {
         this.emailPasswordSignUp(email, password)
     }
 
-    private fun handleErrorMessage(message:String?){
+    private fun handleErrorMessage(message: String?) {
         binding.authTfFeedback.text = message
-        if(message == null){
+        if (message == null) {
             binding.authTfFeedback.visibility = View.GONE
             return
         }
@@ -94,5 +87,10 @@ class SignUpManualFragment : Fragment() {
             .addOnFailureListener {
                 handleErrorMessage(it.message.toString())
             }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
