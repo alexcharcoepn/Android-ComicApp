@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/nav_auth_signup_manual"
         android:name="acc.mobile.comic_app.login.fragments.SignUpManualFragment"
-        android:label="@string/login_fsignup"
+        android:label="@string/auth_fsignup_title"
         tools:layout="@layout/fragment_auth_data">
 
         <action

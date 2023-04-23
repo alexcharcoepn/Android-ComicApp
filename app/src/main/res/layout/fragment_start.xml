@@ -22,24 +22,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
             android:paddingBottom="8dp"
-            android:text="@string/login_fhome_tv_welcome1" />
+            android:text="@string/login_fhome_tv_welcome1"
+            android:textSize="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:paddingHorizontal="28dp"
-            android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
-            android:text="@string/login_fhome_tv_welcome2"/>
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="28dp"
+            android:text="@string/login_fhome_tv_welcome2"
+            android:textSize="16dp" />
 
     </LinearLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/mlogin_et_email_"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
@@ -57,6 +58,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/mlogin_et_password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -81,10 +83,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
         android:width="300dp"
-        android:textColor="@color/white"
+        android:background="@drawable/auth_btn_background"
         android:text="@string/login_fhome_btn_signin"
         android:textAllCaps="false"
-        android:background="@drawable/auth_btn_background"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
