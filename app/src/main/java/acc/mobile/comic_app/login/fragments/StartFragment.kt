@@ -1,12 +1,15 @@
 package acc.mobile.comic_app.login.fragments
 
 import acc.mobile.comic_app.R
+import acc.mobile.comic_app.areValuedStrings
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import acc.mobile.comic_app.databinding.FragmentStartBinding
+import acc.mobile.comic_app.isValidEmail
+import acc.mobile.comic_app.isValidPassword
 import acc.mobile.comic_app.login.LoginActivity
 import android.app.Activity
 import android.view.inputmethod.EditorInfo
@@ -70,9 +73,9 @@ class StartFragment : Fragment() {
             launcher.launch(signInIntent)
         }
 
-            _binding!!.mloginBtnSignUpEmail.setOnClickListener {
-                val action = StartFragmentDirections.actionStartToManualSignup()
-                activity?.findNavController(R.id.navhost_fragment_auth)?.navigate(action)
+        _binding!!.mloginBtnSignUpEmail.setOnClickListener {
+            val action = StartFragmentDirections.actionStartToManualSignup()
+            activity?.findNavController(R.id.navhost_fragment_auth)?.navigate(action)
         }
 
         auth = Firebase.auth
@@ -92,19 +95,27 @@ class StartFragment : Fragment() {
         }
     }
 
-    private fun handleEmailPasswordSignIn(){
+    private fun handleEmailPasswordSignIn() {
         val email = binding.mloginEtEmail.editText?.text.toString()
         val password = binding.mloginEtPassword.editText?.text.toString()
 
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(activity, "Invalid values", Toast.LENGTH_SHORT).show()
+        if (!areValuedStrings(listOf(email, password))) {
+            Toast.makeText(activity, "Field(s) empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (!isValidEmail(email)) {
+            Toast.makeText(activity, "Email is not valid", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (!isValidPassword(password)) {
+            Toast.makeText(activity, "Invalid password", Toast.LENGTH_SHORT).show()
             return
         }
         val authResult = auth.signInWithEmailAndPassword(email, password)
 
     }
 
-    private fun navigateToUserData(authResult:Task<AuthResult>) {
+    private fun navigateToUserData(authResult: Task<AuthResult>) {
         authResult.addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(activity, "INSIDE", Toast.LENGTH_SHORT).show()
