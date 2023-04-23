@@ -10,15 +10,11 @@ import android.view.ViewGroup
 import acc.mobile.comic_app.databinding.FragmentStartBinding
 import acc.mobile.comic_app.isValidEmail
 import acc.mobile.comic_app.isValidPassword
-import acc.mobile.comic_app.login.LoginActivity
 import android.app.Activity
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -90,7 +86,7 @@ class StartFragment : Fragment() {
             if (account != null) {
                 val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                 val authResult = auth.signInWithCredential(credential)
-                navigateToUserData(authResult)
+                handleAuthData(authResult)
             }
         }
     }
@@ -115,10 +111,11 @@ class StartFragment : Fragment() {
 
     }
 
-    private fun navigateToUserData(authResult: Task<AuthResult>) {
+    private fun handleAuthData(authResult: Task<AuthResult>) {
         authResult.addOnCompleteListener {
             if (it.isSuccessful) {
-                Toast.makeText(activity, "INSIDE", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, resources.getString(R.string.auth_fsignup_success), Toast.LENGTH_SHORT).show()
+                //TODO: add logic to handle new or old google account
             }
         }
     }

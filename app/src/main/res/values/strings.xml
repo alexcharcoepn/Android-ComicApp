@@ -37,8 +37,8 @@
     <string name="auth_fsignup_title">Sign-Up</string>
     <string name="auth_fsignup_subtitle">First create your account</string>
     <string name="auth_fsignup_back_login">Press back to Log-In instead</string>
-
     <string name="auth_fsignup_invalid_empty_inputs">Fields empty</string>
+    <string name="auth_fsignup_success">Acccount Created</string>
 
     <!--SECRETS-->
     <string name="secret_server_client_id">42280457647-okaci7ijpghlk861bg886n2p2hbermk4.apps.googleusercontent.com</string>
