@@ -71,7 +71,7 @@ class StartFragment : Fragment() {
         }
 
             _binding!!.mloginBtnSignUpEmail.setOnClickListener {
-                val action = SignUpManualFragmentDirections.actionStartToUserdata()
+                val action = StartFragmentDirections.actionStartToManualSignup()
                 activity?.findNavController(R.id.navhost_fragment_auth)?.navigate(action)
         }
 

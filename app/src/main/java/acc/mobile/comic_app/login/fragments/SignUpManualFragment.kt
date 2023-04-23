@@ -34,4 +34,7 @@ class SignUpManualFragment : Fragment() {
 
         return binding.root
     }
+
+    private fun signUp(){
+    }
 }
