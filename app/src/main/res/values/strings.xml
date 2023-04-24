@@ -45,12 +45,15 @@
     <string name="auth_fuserdata_subtitle">Fill your information</string>
 
 
-    <!--Inputs-->
+    <!--Userdata Fragment-->
     <string name="userdata_username_hint">Username</string>
     <string name="userdata_name_hint">Name</string>
     <string name="userdata_birthday_hint">Birthday</string>
     <string name="userdata_genre_hint">Genre</string>
     <string name="userdata_country_hint">Country</string>
+    <string name="userdata_genre_male">Male</string>
+    <string name="userdata_genre_female">Female</string>
+    <string name="userdata_genre_other">Other</string>
 
     <!--Buttons-->
     <string name="btn_save">Save</string>

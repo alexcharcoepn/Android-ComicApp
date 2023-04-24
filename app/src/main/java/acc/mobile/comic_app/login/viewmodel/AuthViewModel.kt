@@ -3,6 +3,7 @@ package acc.mobile.comic_app.login.viewmodel
 import acc.mobile.comic_app.login.data.AuthData
 import acc.mobile.comic_app.login.data.AuthViewModelResult
 import acc.mobile.comic_app.login.data.UserData
+import acc.mobile.comic_app.login.data.ValidationResult
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,5 +20,11 @@ class AuthViewModel : ViewModel() {
     val userData : LiveData<UserData> = _userData
 
 
+    fun validateUserData(userData: UserData):ValidationResult{
+        val validationResult = ValidationResult(true,"")
+
+
+        return  validationResult
+    }
 
 }

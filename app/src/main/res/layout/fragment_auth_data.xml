@@ -71,22 +71,69 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date"
             android:cursorVisible="false"
             android:focusable="false"
+            android:inputType="date"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--genre-->
-    <!--country-->
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:text="@string/userdata_genre_hint" />
+
+        <RadioGroup
+            android:id="@+id/userdata_rbtn_genre"
+
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <RadioButton
+                android:id="@+id/usertdata_rbtn_genre_male"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/userdata_genre_female" />
+
+            <RadioButton
+                android:id="@+id/usertdata_rbtn_genre_female"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/userdata_genre_male" />
+
+            <RadioButton
+                android:id="@+id/usertdata_rbtn_genre_other"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/userdata_genre_other" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+    <!--country-->
 
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/userdata_btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginVertical="24dp"
         android:width="300dp"
         android:background="@drawable/auth_btn_background"
         android:text="@string/btn_save"

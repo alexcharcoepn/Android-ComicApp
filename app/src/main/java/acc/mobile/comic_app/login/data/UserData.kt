@@ -7,5 +7,4 @@ data class UserData(
     val username: String,
     val birthday: Date,
     val genre: String,
-    val country: String
 )
