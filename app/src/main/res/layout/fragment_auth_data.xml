@@ -22,24 +22,16 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="@string/auth_fsignup_title"
+        android:text="@string/auth_fuserdata_title"
         android:textSize="24dp" />
 
-    <TextView
-        android:id="@+id/fsignup_subtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:text="@string/auth_fsignup_subtitle" />
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/auth_signup_et_username"
+        android:id="@+id/userdata_et_username"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:hint="@string/login_fhome_username_hint"
+        android:hint="@string/userdata_username_hint"
         app:startIconDrawable="@drawable/baseline_person_24">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -50,68 +42,56 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/auth_signup_et_email"
+        android:id="@+id/userdata_et_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:hint="@string/login_fhome_email_hint"
-        app:startIconDrawable="@drawable/baseline_email_24">
+        android:hint="@string/userdata_name_hint"
+        app:startIconDrawable="@drawable/baseline_person_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+    <!--birthday-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/auth_signup_et_password"
+        android:id="@+id/userdata_et_birthday"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:hint="@string/login_fhome_password_hint"
-        app:startIconDrawable="@drawable/baseline_password_24">
+        android:hint="@string/userdata_birthday_hint"
+        app:startIconDrawable="@drawable/baseline_edit_calendar_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="date"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/auth_signup_et_password_verify"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:hint="@string/login_fhome_password_verify_hint"
-        app:startIconDrawable="@drawable/baseline_password_24">
+    <!--genre-->
+    <!--country-->
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/mlogin_btn_singin"
+        android:id="@+id/userdata_btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:width="300dp"
         android:background="@drawable/auth_btn_background"
-        android:text="@string/auth_fsignup_title"
+        android:text="@string/btn_save"
         android:textAllCaps="false"
         android:textColor="@color/white" />
 
-    <TextView
-        android:id="@+id/fsignup_back_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:text="@string/auth_fsignup_back_login" />
 
 </LinearLayout>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_navigation"
-    app:startDestination="@+id/nav_auth_start">
+    app:startDestination="@+id/nav_auth_userdata">
+    <!--TODO: change startDestination after userdata is finished-->
 
 
     <fragment

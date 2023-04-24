@@ -40,6 +40,22 @@
     <string name="auth_fsignup_invalid_empty_inputs">Fields empty</string>
     <string name="auth_fsignup_success">Acccount Created</string>
 
+    <!--Manual SignUp User Data Fragment"-->
+    <string name="auth_fuserdata_title">User Info</string>
+    <string name="auth_fuserdata_subtitle">Fill your information</string>
+
+
+    <!--Inputs-->
+    <string name="userdata_username_hint">Username</string>
+    <string name="userdata_name_hint">Name</string>
+    <string name="userdata_birthday_hint">Birthday</string>
+    <string name="userdata_genre_hint">Genre</string>
+    <string name="userdata_country_hint">Country</string>
+
+    <!--Buttons-->
+    <string name="btn_save">Save</string>
+
+
     <!--SECRETS-->
     <string name="secret_server_client_id">42280457647-okaci7ijpghlk861bg886n2p2hbermk4.apps.googleusercontent.com</string>
 

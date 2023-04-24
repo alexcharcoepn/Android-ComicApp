@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         Log.d("act-main","Current User: ${currentUser}")
         if(currentUser == null){
+            //TODO: check that the user have already filled its user data
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
