@@ -49,7 +49,7 @@
     <string name="userdata_username_hint">Username</string>
     <string name="userdata_name_hint">Name</string>
     <string name="userdata_birthday_hint">Birthday</string>
-    <string name="userdata_genre_hint">Genre</string>
+    <string name="userdata_genre_hint">Gender</string>
     <string name="userdata_country_hint">Country</string>
     <string name="userdata_genre_male">Male</string>
     <string name="userdata_genre_female">Female</string>
