@@ -2,21 +2,20 @@ package acc.mobile.comic_app.login.fragments
 
 import acc.mobile.comic_app.R
 import acc.mobile.comic_app.areValuedStrings
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import acc.mobile.comic_app.databinding.FragmentAuthDataBinding
 import acc.mobile.comic_app.login.createDatePicker
 import acc.mobile.comic_app.login.data.UserData
 import acc.mobile.comic_app.login.viewmodel.AuthViewModel
-import android.util.Log
-import android.view.inputmethod.EditorInfo
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
@@ -36,12 +35,13 @@ class AuthDataFragment : Fragment() {
 
     private lateinit var userDataViewModel: AuthViewModel
 
-    private var validInput = true
+    private lateinit var imm: InputMethodManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         datePicker = createDatePicker()
+        imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
     override fun onCreateView(
@@ -60,14 +60,12 @@ class AuthDataFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-
         binding.userdataEtBirthday.editText?.setOnClickListener {
             datePicker.show(parentFragmentManager, "birthday-datepicker")
         }
 
         binding.userdataBtnSave.setOnClickListener {
-            _binding!!.userdataBtnSave.onEditorAction(EditorInfo.IME_ACTION_DONE)
-            Log.d("frag-userdata", "saving")
+            imm.hideSoftInputFromWindow(requireActivity().window.currentFocus!!.windowToken, 0)
             this.saveUserData()
         }
 
