@@ -2,18 +2,19 @@ package acc.mobile.comic_app.login.fragments
 
 import acc.mobile.comic_app.R
 import acc.mobile.comic_app.areValuedStrings
+import acc.mobile.comic_app.databinding.FragmentStartBinding
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import acc.mobile.comic_app.databinding.FragmentStartBinding
 import acc.mobile.comic_app.isValidEmail
 import acc.mobile.comic_app.isValidPassword
 import android.app.Activity
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -57,7 +58,7 @@ class StartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentStartBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)
 
         _binding!!.mloginBtnSingin.setOnClickListener {
             _binding!!.mloginBtnSingin.onEditorAction(EditorInfo.IME_ACTION_DONE)
@@ -114,7 +115,11 @@ class StartFragment : Fragment() {
     private fun handleAuthData(authResult: Task<AuthResult>) {
         authResult.addOnCompleteListener {
             if (it.isSuccessful) {
-                Toast.makeText(activity, resources.getString(R.string.auth_fsignup_success), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity,
+                    resources.getString(R.string.auth_fsignup_success),
+                    Toast.LENGTH_SHORT
+                ).show()
                 //TODO: add logic to handle new or old google account
             }
         }

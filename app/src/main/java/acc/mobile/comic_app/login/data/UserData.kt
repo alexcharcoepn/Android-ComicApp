@@ -3,8 +3,8 @@ package acc.mobile.comic_app.login.data
 import java.util.Date
 
 data class UserData(
-    val name: String,
-    val username: String,
-    val birthday: Date,
-    val genre: String,
+    var name: String?,
+    var username: String?,
+    var birthday: Date?,
+    var genre: String?,
 )

@@ -1,5 +1,6 @@
 package acc.mobile.comic_app.login.fragments
 
+import acc.mobile.comic_app.R
 import acc.mobile.comic_app.areValuedStrings
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +10,14 @@ import android.view.ViewGroup
 import acc.mobile.comic_app.databinding.FragmentAuthDataBinding
 import acc.mobile.comic_app.login.createDatePicker
 import acc.mobile.comic_app.login.data.UserData
+import acc.mobile.comic_app.login.viewmodel.AuthViewModel
+import android.util.Log
+import android.view.inputmethod.EditorInfo
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -27,6 +34,10 @@ class AuthDataFragment : Fragment() {
 
     private lateinit var datePicker: MaterialDatePicker<Long>
 
+    private lateinit var userDataViewModel: AuthViewModel
+
+    private var validInput = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
@@ -37,18 +48,26 @@ class AuthDataFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAuthDataBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_data, container, false)
+        userDataViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.userDataViewModel = userDataViewModel
+
+        binding.lifecycleOwner = viewLifecycleOwner
+
+
         binding.userdataEtBirthday.editText?.setOnClickListener {
             datePicker.show(parentFragmentManager, "birthday-datepicker")
         }
 
         binding.userdataBtnSave.setOnClickListener {
+            _binding!!.userdataBtnSave.onEditorAction(EditorInfo.IME_ACTION_DONE)
+            Log.d("frag-userdata", "saving")
             this.saveUserData()
         }
 
@@ -57,27 +76,25 @@ class AuthDataFragment : Fragment() {
         }
 
         setBirthdateUI(MaterialDatePicker.todayInUtcMilliseconds())
-
     }
 
     private fun saveUserData() {
         val username = binding.userdataEtUsername.editText?.text.toString()
-        val name = binding.userdataEtUsername.editText?.text.toString()
+        val name = binding.userdataEtName.editText?.text.toString()
         val birthdayDateLong = datePicker.selection
-        val genreRadioButtonId = binding.userdataRbtnGenre.checkedRadioButtonId
-        val genre = binding.root.findViewById<RadioButton>(genreRadioButtonId).text.toString()
+        val genreRadioSelected =
+            binding.root.findViewById<RadioButton>(binding.userdataRbtnGenre.checkedRadioButtonId)
 
-        if (!areValuedStrings(listOf(username, name, genre)) || birthdayDateLong == null) {
+        if (!areValuedStrings(listOf(username, name))
+            || birthdayDateLong == null || genreRadioSelected == null
+        ) {
             Toast.makeText(activity, "Field(s) empty", Toast.LENGTH_SHORT).show()
             return
         }
-
-        val userData = UserData(name, username, Date(birthdayDateLong), genre)
-
-        //TODO: use viewmodel to send request
-
+        val userData =
+            UserData(name, username, Date(birthdayDateLong), genreRadioSelected.text.toString())
+        userDataViewModel.validateUserData(userData)
     }
-
 
     private fun setBirthdateUI(dateMillis: Long) {
         val date = Date(dateMillis)

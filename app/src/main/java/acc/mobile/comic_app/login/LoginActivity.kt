@@ -2,14 +2,10 @@ package acc.mobile.comic_app.login
 
 import acc.mobile.comic_app.R
 import acc.mobile.comic_app.databinding.ActivityLoginBinding
-import acc.mobile.comic_app.databinding.ActivityMainBinding
-import acc.mobile.comic_app.login.fragments.SignUpManualFragmentDirections
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
