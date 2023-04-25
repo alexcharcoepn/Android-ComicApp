@@ -48,7 +48,7 @@ class SignUpManualFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _binding!!.authBtnSignup.setOnClickListener {
+        binding.authBtnSignup.setOnClickListener {
             imm.hideSoftInputFromWindow(requireActivity().window.currentFocus!!.windowToken, 0)
             this.signUpHandler()
         }

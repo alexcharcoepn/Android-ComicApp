@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import acc.mobile.comic_app.isValidEmail
 import acc.mobile.comic_app.isValidPassword
 import android.app.Activity
+import android.content.Context
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
@@ -34,6 +36,8 @@ class StartFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
+    private lateinit var imm: InputMethodManager
+
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -50,7 +54,8 @@ class StartFragment : Fragment() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-
+        auth = Firebase.auth
+        imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
     override fun onCreateView(
@@ -60,22 +65,20 @@ class StartFragment : Fragment() {
     ): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)
 
-        _binding!!.mloginBtnSingin.setOnClickListener {
-            _binding!!.mloginBtnSingin.onEditorAction(EditorInfo.IME_ACTION_DONE)
+        binding.mloginBtnSingin.setOnClickListener {
+            binding.mloginBtnSingin.onEditorAction(EditorInfo.IME_ACTION_DONE)
             handleEmailPasswordSignIn()
         }
 
-        _binding!!.mloginBtnAuthGoogle.setOnClickListener {
+        binding.mloginBtnAuthGoogle.setOnClickListener {
             val signInIntent = googleSignInClient.signInIntent
             launcher.launch(signInIntent)
         }
 
-        _binding!!.mloginBtnSignUpEmail.setOnClickListener {
+        binding.mloginBtnSignUpEmail.setOnClickListener {
             val action = StartFragmentDirections.actionStartToManualSignup()
-            activity?.findNavController(R.id.navhost_fragment_auth)?.navigate(action)
+            requireActivity().findNavController(R.id.navhost_fragment_auth)?.navigate(action)
         }
-
-        auth = Firebase.auth
 
         return binding.root
     }
@@ -87,7 +90,7 @@ class StartFragment : Fragment() {
             if (account != null) {
                 val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                 val authResult = auth.signInWithCredential(credential)
-                handleAuthData(authResult)
+                handleAuthData(authResult, "Account Created")
             }
         }
     }
@@ -109,18 +112,18 @@ class StartFragment : Fragment() {
             return
         }
         val authResult = auth.signInWithEmailAndPassword(email, password)
-
+        handleAuthData(authResult, "Logged-In")
     }
 
-    private fun handleAuthData(authResult: Task<AuthResult>) {
+    private fun handleAuthData(authResult: Task<AuthResult>, message: String) {
         authResult.addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(
                     activity,
-                    resources.getString(R.string.auth_fsignup_success),
+                    message,
                     Toast.LENGTH_SHORT
                 ).show()
-                //TODO: add logic to handle new or old google account
+                //TODO: add logic to handle new vs old account, to set action
             }
         }
     }
