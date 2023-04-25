@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">comic-app</string>
+    <string name="app_name">Cheems Comics</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -19,17 +20,46 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!--Login-->
-    <string name="login_fhome">Login/Sign-Up</string>
+    <!--Auth-->
+    <string name="login_fhome">Log-In</string>
     <string name="login_fuserdata">User Data</string>
     <string name="login_fhome_email_hint">Email</string>
     <string name="login_fhome_password_hint">Password</string>
+    <string name="login_fhome_password_verify_hint">Verify Password</string>
+    <string name="login_fhome_username_hint">Username</string>
     <string name="login_fhome_btn_signin">Sign In</string>
     <string name="login_fhome_tv_signin_methods">Or continue with</string>
     <string name="login_fhome_tv_welcome1">Welcome to your daily Comic</string>
     <string name="login_fhome_tv_welcome2">Find the latest updates of your favorite comics &amp; mangas</string>
+
+    <!--Manual SignUp Fragment"-->
+    <string name="auth_fsignup_title">Sign-Up</string>
+    <string name="auth_fsignup_subtitle">First create your account</string>
+    <string name="auth_fsignup_back_login">Press back to Log-In instead</string>
+    <string name="auth_fsignup_invalid_empty_inputs">Fields empty</string>
+    <string name="auth_fsignup_success">Acccount Created</string>
+
+    <!--Manual SignUp User Data Fragment"-->
+    <string name="auth_fuserdata_title">User Info</string>
+    <string name="auth_fuserdata_subtitle">Fill your information</string>
+
+
+    <!--Userdata Fragment-->
+    <string name="userdata_username_hint">Username</string>
+    <string name="userdata_name_hint">Name</string>
+    <string name="userdata_birthday_hint">Birthday</string>
+    <string name="userdata_genre_hint">Gender</string>
+    <string name="userdata_country_hint">Country</string>
+    <string name="userdata_genre_male">Male</string>
+    <string name="userdata_genre_female">Female</string>
+    <string name="userdata_genre_other">Other</string>
+
+    <!--Buttons-->
+    <string name="btn_save">Save</string>
+
+
+    <!--SECRETS-->
+    <string name="secret_server_client_id">42280457647-okaci7ijpghlk861bg886n2p2hbermk4.apps.googleusercontent.com</string>
 
 </resources>

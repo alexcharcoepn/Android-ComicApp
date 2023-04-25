@@ -13,4 +13,7 @@
     <color name="auth_btn1">#9C3FE4</color>
     <color name="auth_btn2">#C65647</color>
 
+    <!--General-->
+    <color name="error_message">#FF0000</color>
+
 </resources>
