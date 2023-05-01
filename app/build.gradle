@@ -72,8 +72,6 @@ dependencies {
     implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
 
 
-
-
     //FIREBASE
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:31.5.0')
@@ -87,14 +85,22 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
 
 
-    //LOGIN
-    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    //ROOM
+    def room_version = "2.5.1"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
 
 
+    //ARCHITECTURE
     def lifecycle_version = "2.6.1"
     def arch_version = "2.2.0"
 
-    //ARCHITECTURE
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
@@ -106,9 +112,6 @@ dependencies {
 
     // Saved state module for ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-
-    // Annotation processor
-    //kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
