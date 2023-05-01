@@ -7,20 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import acc.mobile.comic_app.databinding.FragmentSignUpManualBinding
-import acc.mobile.comic_app.login.data.UserData
 import acc.mobile.comic_app.login.viewmodel.AuthViewModel
 import android.content.Context
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class SignUpManualFragment : Fragment() {
     private var _binding: FragmentSignUpManualBinding? = null
@@ -50,6 +41,13 @@ class SignUpManualFragment : Fragment() {
             imm.hideSoftInputFromWindow(requireActivity().window.currentFocus!!.windowToken, 0)
             this.signUpHandler()
         }
+
+        authViewModel.authResult.observe(viewLifecycleOwner) {
+            if (it) {
+                val action = SignUpManualFragmentDirections.actionStartToUserdata()
+                requireActivity().findNavController(R.id.navhost_fragment_auth).navigate(action)
+            }
+        }
     }
 
     private fun signUpHandler() {
@@ -57,33 +55,7 @@ class SignUpManualFragment : Fragment() {
         val password = binding.authSignupEtPassword.editText?.text.toString()
         val passwordVerify = binding.authSignupEtPasswordVerify.editText?.text.toString()
 
-        if (!areValuedStrings(listOf(email, password, passwordVerify))) {
-            handleErrorMessage("Field(s) empty")
-            return
-        }
-        if (!isValidEmail(email)) {
-            handleErrorMessage("Email is not valid")
-            return
-        }
-        if (password != passwordVerify) {
-            handleErrorMessage("Password does not match")
-            return
-        }
-        if (!isValidPassword(password)) {
-            handleErrorMessage("Invalid password")
-            return
-        }
-
-        this.authViewModel.emailPasswordSignUp(email, password)
-    }
-
-    private fun handleErrorMessage(message: String?) {
-        binding.authTfFeedback.text = message
-        if (message == null) {
-            binding.authTfFeedback.visibility = View.GONE
-            return
-        }
-        binding.authTfFeedback.visibility = View.VISIBLE
+        this.authViewModel.handleManualSignUp(email,password,passwordVerify)
     }
 
 

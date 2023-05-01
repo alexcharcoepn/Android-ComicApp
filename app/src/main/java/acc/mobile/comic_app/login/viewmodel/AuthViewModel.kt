@@ -1,37 +1,76 @@
 package acc.mobile.comic_app.login.viewmodel
 
-import acc.mobile.comic_app.Collections
-import acc.mobile.comic_app.R
+import acc.mobile.comic_app.*
 import acc.mobile.comic_app.login.data.UserData
 import acc.mobile.comic_app.login.data.ValidationResult
-import acc.mobile.comic_app.login.fragments.SignUpManualFragmentDirections
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.findNavController
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AuthViewModel : ViewModel() {
     private val auth: FirebaseAuth = Firebase.auth
     private val db = Firebase.firestore
 
+    private val _authResult = MutableLiveData(false)
+    val authResult: LiveData<Boolean>
+        get() = _authResult
 
 
+    private val _validInputs = MutableLiveData(ValidationResult(true))
+    val validInputs: LiveData<ValidationResult>
+        get() = _validInputs
 
-    fun emailPasswordSignUp(email: String, password: String) {
+
+    fun handleManualSignUp(email: String, password: String, passwordVerify: String) {
+        validateInputs(email, password, passwordVerify)
+        if (!_validInputs.value!!.valid) {
+            return
+        }
+
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                emailPasswordSignUp(email, password)
+            }
+        }
+    }
+
+    private fun emailPasswordSignUp(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 createUserDocument(it.user!!)
             }
             .addOnFailureListener {
-
+                _authResult.value = false
             }
+    }
+
+    private fun validateInputs(email: String, password: String, passwordVerify: String) {
+        if (!areValuedStrings(listOf(email, password, passwordVerify))) {
+            _validInputs.value = ValidationResult(false, "Field(s) empty")
+            return
+        }
+        if (!isValidEmail(email)) {
+            _validInputs.value = ValidationResult(false, "Email is not valid")
+            return
+        }
+        if (password != passwordVerify) {
+            _validInputs.value = ValidationResult(false, "Email is not valid")
+            return
+        }
+        if (!isValidPassword(password)) {
+            _validInputs.value = ValidationResult(false, "Invalid password")
+            return
+        }
+        _validInputs.value = ValidationResult(true, null)
     }
 
 
@@ -40,10 +79,9 @@ class AuthViewModel : ViewModel() {
         db.collection(Collections.user)
             .add(userDoc)
             .addOnSuccessListener {
-                //val action = SignUpManualFragmentDirections.actionStartToUserdata()
-                //activity?.findNavController(R.id.navhost_fragment_auth)?.navigate(action)
+                _authResult.value = true
             }.addOnFailureListener {
-                //handleErrorMessage(it.message.toString())
+                _authResult.value = false
             }
     }
 }

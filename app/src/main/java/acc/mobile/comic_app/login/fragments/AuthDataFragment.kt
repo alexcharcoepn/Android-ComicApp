@@ -6,6 +6,7 @@ import acc.mobile.comic_app.databinding.FragmentAuthDataBinding
 import acc.mobile.comic_app.login.createDatePicker
 import acc.mobile.comic_app.login.data.UserData
 import acc.mobile.comic_app.login.viewmodel.AuthViewModel
+import acc.mobile.comic_app.login.viewmodel.UserDataViewModel
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,7 +34,7 @@ class AuthDataFragment : Fragment() {
 
     private lateinit var datePicker: MaterialDatePicker<Long>
 
-    private lateinit var userDataViewModel: AuthViewModel
+    private lateinit var userDataViewModel: UserDataViewModel
 
     private lateinit var imm: InputMethodManager
 
@@ -42,7 +43,7 @@ class AuthDataFragment : Fragment() {
         auth = Firebase.auth
         datePicker = createDatePicker()
         imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        userDataViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+        userDataViewModel = ViewModelProvider(this).get(UserDataViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -91,7 +92,8 @@ class AuthDataFragment : Fragment() {
         }
         val userData =
             UserData(name, username, Date(birthdayDateLong), genreRadioSelected.text.toString())
-        userDataViewModel.validateUserData(userData)
+
+        userDataViewModel.handleSaveUserData(userData)
     }
 
     private fun setBirthdateUI(dateMillis: Long) {

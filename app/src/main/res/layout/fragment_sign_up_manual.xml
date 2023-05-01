@@ -2,6 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="authViewModel"
+            type="acc.mobile.comic_app.login.viewmodel.AuthViewModel" />
+    </data>
+
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -88,8 +97,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:gravity="center"
+            android:text="@{authViewModel.validInputs.message}"
             android:textColor="@color/error_message"
-            android:visibility="gone" />
+            android:visibility="@{authViewModel.validInputs.valid ?  View.GONE : View.VISIBLE}" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/auth_btn_signup"

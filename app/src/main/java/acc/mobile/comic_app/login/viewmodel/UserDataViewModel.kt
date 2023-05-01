@@ -7,16 +7,21 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UserDataViewModel : ViewModel() {
     private val auth: FirebaseAuth = Firebase.auth
     private val db = Firebase.firestore
 
-    private val _userData = MutableLiveData(UserData())
+    private val _userData =
+        MutableLiveData(UserData(userId = auth.uid, email = auth.currentUser?.email))
     val userData: LiveData<UserData>
         get() = _userData
 
@@ -24,7 +29,8 @@ class UserDataViewModel : ViewModel() {
     val validInputs: LiveData<ValidationResult>
         get() = _validInputs
 
-    fun validateUserData(userData: UserData) {
+
+    fun handleSaveUserData(userData: UserData) {
         _userData.value = userData
         val validationResult = ValidationResult(true, null)
 
@@ -35,22 +41,28 @@ class UserDataViewModel : ViewModel() {
 
         _validInputs.value = validationResult
 
-        this.saveUserData()
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                saveUserData()
+            }
+        }
     }
 
-    private fun saveUserData() {
+    private suspend fun saveUserData() {
         val userData = _userData.value
-        userData?.userId = auth.uid
-        userData?.email = auth.currentUser?.email
 
-        db.collection(Collections.user)
-            .add(userData!!)
-            .addOnSuccessListener { documentReference ->
-                Log.d("userdata", "DocumentSnapshot added with ID: ${documentReference.id}")
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                db.collection(Collections.user)
+                    .add(userData!!)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d("userdata", "DocumentSnapshot added with ID: ${documentReference.id}")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("userdata", "Error adding document", e)
+                    }
             }
-            .addOnFailureListener { e ->
-                Log.w("userdata", "Error adding document", e)
-            }
+        }
     }
 
 
