@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import acc.mobile.comic_app.databinding.FragmentSignUpManualBinding
 import acc.mobile.comic_app.login.data.UserData
+import acc.mobile.comic_app.login.viewmodel.AuthViewModel
 import android.content.Context
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -24,17 +26,13 @@ class SignUpManualFragment : Fragment() {
     private var _binding: FragmentSignUpManualBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
-
     private lateinit var imm: InputMethodManager
-
+    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
-        db = Firebase.firestore
         imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        authViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -76,7 +74,7 @@ class SignUpManualFragment : Fragment() {
             return
         }
 
-        this.emailPasswordSignUp(email, password)
+        this.authViewModel.emailPasswordSignUp(email, password)
     }
 
     private fun handleErrorMessage(message: String?) {
@@ -88,28 +86,6 @@ class SignUpManualFragment : Fragment() {
         binding.authTfFeedback.visibility = View.VISIBLE
     }
 
-    private fun emailPasswordSignUp(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnSuccessListener {
-                createUserDocument(it.user!!)
-            }
-            .addOnFailureListener {
-                handleErrorMessage(it.message.toString())
-            }
-    }
-
-    private fun createUserDocument(user: FirebaseUser) {
-        val userDoc = UserData(email = user.email, userId = user.uid)
-        db.collection(Collections.user)
-            .add(userDoc)
-            .addOnSuccessListener {
-                Toast.makeText(activity, "User Created", Toast.LENGTH_SHORT).show()
-                val action = SignUpManualFragmentDirections.actionStartToUserdata()
-                activity?.findNavController(R.id.navhost_fragment_auth)?.navigate(action)
-            }.addOnFailureListener {
-                handleErrorMessage(it.message.toString())
-            }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

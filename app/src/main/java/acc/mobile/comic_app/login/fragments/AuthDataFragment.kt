@@ -42,6 +42,7 @@ class AuthDataFragment : Fragment() {
         auth = Firebase.auth
         datePicker = createDatePicker()
         imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        userDataViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -49,7 +50,6 @@ class AuthDataFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_data, container, false)
-        userDataViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
         return binding.root
     }
 
