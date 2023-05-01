@@ -24,6 +24,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //SECRETS
+        buildConfigField "String", "SERVER_SECRET_CLIENT_ID", "\"42280457647-okaci7ijpghlk861bg886n2p2hbermk4.apps.googleusercontent.com\""
     }
 
     buildFeatures {

@@ -24,7 +24,6 @@ class AuthViewModel : ViewModel() {
     val authResult: LiveData<Boolean>
         get() = _authResult
 
-
     private val _validInputs = MutableLiveData(OperationResult(true))
     val validInputs: LiveData<OperationResult>
         get() = _validInputs
