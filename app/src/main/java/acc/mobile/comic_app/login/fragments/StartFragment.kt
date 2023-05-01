@@ -1,5 +1,6 @@
 package acc.mobile.comic_app.login.fragments
 
+import acc.mobile.comic_app.AppAplication
 import acc.mobile.comic_app.R
 import acc.mobile.comic_app.databinding.FragmentStartBinding
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import acc.mobile.comic_app.login.viewmodel.StartAuthViewModel
+import acc.mobile.comic_app.login.viewmodel.StartAuthViewModelFactory
 import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.EditorInfo
@@ -15,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -25,7 +28,12 @@ class StartFragment : Fragment() {
 
     private lateinit var imm: InputMethodManager
 
-    private lateinit var startAuthViewModel: StartAuthViewModel
+    private val startAuthViewModel: StartAuthViewModel by activityViewModels {
+        StartAuthViewModelFactory(
+            (activity?.application as AppAplication).database.itemDao()
+        //TODO: pass into the factory the Context
+        )
+    }
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -37,7 +45,6 @@ class StartFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startAuthViewModel = ViewModelProvider(this)[StartAuthViewModel::class.java]
         startAuthViewModel.configureGoogleSignInClient(requireContext())
         imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
@@ -70,8 +77,8 @@ class StartFragment : Fragment() {
             }
         }
 
-        startAuthViewModel.authResult.observe(viewLifecycleOwner){
-            if(it.valid){
+        startAuthViewModel.authResult.observe(viewLifecycleOwner) {
+            if (it.valid) {
                 /*
                 TODO: travel to Main vs UserData: check local data is existent, also try to retrieve it
                       Try to retrieve data from back, if exists it is an login else an signup

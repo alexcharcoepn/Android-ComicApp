@@ -5,11 +5,11 @@ import acc.mobile.comic_app.areValuedStrings
 import acc.mobile.comic_app.isValidEmail
 import acc.mobile.comic_app.isValidPassword
 import acc.mobile.comic_app.login.data.OperationResult
+import acc.mobile.comic_app.room.dao.UserDao
+import acc.mobile.comic_app.room.entity.User
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -19,8 +19,9 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
-class StartAuthViewModel : ViewModel() {
+class StartAuthViewModel(private val userDao: UserDao) : ViewModel() {
     private val auth = Firebase.auth
     private lateinit var googleSignInClient: GoogleSignInClient
     val signInIntent: Intent
@@ -64,6 +65,10 @@ class StartAuthViewModel : ViewModel() {
 
     private fun handleAuthData(authResult: Task<AuthResult>) = authResult
         .addOnSuccessListener {
+            val newUser = User(userId = it.user!!.uid, email = it.user!!.email)
+            viewModelScope.launch {
+                userDao.insert(newUser)
+            }
             _authResult.value = OperationResult(true)
         }.addOnFailureListener {
             _authResult.value = OperationResult(false, it.message.toString())
@@ -86,4 +91,14 @@ class StartAuthViewModel : ViewModel() {
         _validInputs.value = OperationResult(true, null)
     }
 
+}
+
+class StartAuthViewModelFactory(private val userDao: UserDao) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(StartAuthViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return StartAuthViewModel(userDao) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }
