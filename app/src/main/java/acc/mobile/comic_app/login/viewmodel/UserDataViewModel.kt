@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class UserDataViewModel : ViewModel() {
+    //TODO: DI the data layer through a repository
     private val auth: FirebaseAuth = Firebase.auth
     private val db = Firebase.firestore
 

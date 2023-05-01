@@ -20,7 +20,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class AuthGoogleViewModel : ViewModel() {
+class StartAuthViewModel : ViewModel() {
     private val auth = Firebase.auth
     private lateinit var googleSignInClient: GoogleSignInClient
     val signInIntent: Intent
