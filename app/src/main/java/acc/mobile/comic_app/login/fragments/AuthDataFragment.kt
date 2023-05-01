@@ -1,12 +1,14 @@
 package acc.mobile.comic_app.login.fragments
 
-import acc.mobile.comic_app.R
+import acc.mobile.comic_app.MainActivity
 import acc.mobile.comic_app.areValuedStrings
 import acc.mobile.comic_app.databinding.FragmentAuthDataBinding
 import acc.mobile.comic_app.login.createDatePicker
 import acc.mobile.comic_app.login.data.UserData
-import acc.mobile.comic_app.login.viewmodel.AuthViewModel
+import acc.mobile.comic_app.login.viewmodel.UserDataViewModel
 import android.content.Context
+import acc.mobile.comic_app.R
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +35,7 @@ class AuthDataFragment : Fragment() {
 
     private lateinit var datePicker: MaterialDatePicker<Long>
 
-    private lateinit var userDataViewModel: AuthViewModel
+    private lateinit var userDataViewModel: UserDataViewModel
 
     private lateinit var imm: InputMethodManager
 
@@ -42,6 +44,7 @@ class AuthDataFragment : Fragment() {
         auth = Firebase.auth
         datePicker = createDatePicker()
         imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        userDataViewModel = ViewModelProvider(this)[UserDataViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -49,7 +52,6 @@ class AuthDataFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_data, container, false)
-        userDataViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
         return binding.root
     }
 
@@ -67,6 +69,14 @@ class AuthDataFragment : Fragment() {
         binding.userdataBtnSave.setOnClickListener {
             imm.hideSoftInputFromWindow(requireActivity().window.currentFocus!!.windowToken, 0)
             this.saveUserData()
+        }
+
+        userDataViewModel.userDataSaved.observe(viewLifecycleOwner) {
+            if (it.valid) {
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }
         }
 
         datePicker.addOnPositiveButtonClickListener {
@@ -91,7 +101,8 @@ class AuthDataFragment : Fragment() {
         }
         val userData =
             UserData(name, username, Date(birthdayDateLong), genreRadioSelected.text.toString())
-        userDataViewModel.validateUserData(userData)
+
+        userDataViewModel.handleSaveUserData(userData)
     }
 
     private fun setBirthdateUI(dateMillis: Long) {

@@ -9,7 +9,7 @@
 
         <variable
             name="userDataViewModel"
-            type="acc.mobile.comic_app.login.viewmodel.AuthViewModel" />
+            type="acc.mobile.comic_app.login.viewmodel.UserDataViewModel" />
     </data>
 
     <LinearLayout

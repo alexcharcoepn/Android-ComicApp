@@ -57,9 +57,5 @@
 
     <!--Buttons-->
     <string name="btn_save">Save</string>
-
-
-    <!--SECRETS-->
-    <string name="secret_server_client_id">42280457647-okaci7ijpghlk861bg886n2p2hbermk4.apps.googleusercontent.com</string>
-
+    
 </resources>

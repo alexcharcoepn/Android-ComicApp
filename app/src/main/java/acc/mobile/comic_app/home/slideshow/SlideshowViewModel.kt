@@ -1,4 +1,4 @@
-package acc.mobile.comic_app.ui.slideshow
+package acc.mobile.comic_app.home.slideshow
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
