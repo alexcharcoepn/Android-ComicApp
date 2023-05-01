@@ -93,6 +93,7 @@ class StartAuthViewModel(private val userDao: UserDao) : ViewModel() {
 
 }
 
+//TODO: check DI framework and how this will change
 class StartAuthViewModelFactory(private val userDao: UserDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(StartAuthViewModel::class.java)) {
