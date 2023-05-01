@@ -2,7 +2,7 @@ package acc.mobile.comic_app.login.viewmodel
 
 import acc.mobile.comic_app.Collections
 import acc.mobile.comic_app.login.data.UserData
-import acc.mobile.comic_app.login.data.ValidationResult
+import acc.mobile.comic_app.login.data.OperationResult
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,14 +25,18 @@ class UserDataViewModel : ViewModel() {
     val userData: LiveData<UserData>
         get() = _userData
 
-    private val _validInputs = MutableLiveData(ValidationResult(true))
-    val validInputs: LiveData<ValidationResult>
+    private val _validInputs = MutableLiveData(OperationResult(true))
+    val validInputs: LiveData<OperationResult>
         get() = _validInputs
+
+    private val _userDataSaved = MutableLiveData(OperationResult(false))
+    val userDataSaved: LiveData<OperationResult>
+        get() = _userDataSaved
 
 
     fun handleSaveUserData(userData: UserData) {
         _userData.value = userData
-        val validationResult = ValidationResult(true, null)
+        val validationResult = OperationResult(true, null)
 
         if (userData.name!!.length <= 10 || userData.username!!.length <= 10) {
             validationResult.valid = false
@@ -40,9 +44,8 @@ class UserDataViewModel : ViewModel() {
         }
 
         _validInputs.value = validationResult
-
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
+        if (validationResult.valid) {
+            viewModelScope.launch {
                 saveUserData()
             }
         }
@@ -51,17 +54,16 @@ class UserDataViewModel : ViewModel() {
     private suspend fun saveUserData() {
         val userData = _userData.value
 
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                db.collection(Collections.user)
-                    .add(userData!!)
-                    .addOnSuccessListener { documentReference ->
-                        Log.d("userdata", "DocumentSnapshot added with ID: ${documentReference.id}")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.w("userdata", "Error adding document", e)
-                    }
-            }
+        withContext(Dispatchers.IO) {
+            db.collection(Collections.user)
+                .add(userData!!)
+                .addOnSuccessListener { documentReference ->
+                    Log.d("userdata", "DocumentSnapshot added with ID: ${documentReference.id}")
+                    _userDataSaved.value = OperationResult(true, "")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("userdata", "Error adding document", e)
+                }
         }
     }
 

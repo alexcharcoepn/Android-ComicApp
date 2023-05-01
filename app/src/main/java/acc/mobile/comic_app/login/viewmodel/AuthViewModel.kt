@@ -2,7 +2,7 @@ package acc.mobile.comic_app.login.viewmodel
 
 import acc.mobile.comic_app.*
 import acc.mobile.comic_app.login.data.UserData
-import acc.mobile.comic_app.login.data.ValidationResult
+import acc.mobile.comic_app.login.data.OperationResult
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,8 +25,8 @@ class AuthViewModel : ViewModel() {
         get() = _authResult
 
 
-    private val _validInputs = MutableLiveData(ValidationResult(true))
-    val validInputs: LiveData<ValidationResult>
+    private val _validInputs = MutableLiveData(OperationResult(true))
+    val validInputs: LiveData<OperationResult>
         get() = _validInputs
 
 
@@ -55,22 +55,22 @@ class AuthViewModel : ViewModel() {
 
     private fun validateInputs(email: String, password: String, passwordVerify: String) {
         if (!areValuedStrings(listOf(email, password, passwordVerify))) {
-            _validInputs.value = ValidationResult(false, "Field(s) empty")
+            _validInputs.value = OperationResult(false, "Field(s) empty")
             return
         }
         if (!isValidEmail(email)) {
-            _validInputs.value = ValidationResult(false, "Email is not valid")
+            _validInputs.value = OperationResult(false, "Email is not valid")
             return
         }
         if (password != passwordVerify) {
-            _validInputs.value = ValidationResult(false, "Email is not valid")
+            _validInputs.value = OperationResult(false, "Email is not valid")
             return
         }
         if (!isValidPassword(password)) {
-            _validInputs.value = ValidationResult(false, "Invalid password")
+            _validInputs.value = OperationResult(false, "Invalid password")
             return
         }
-        _validInputs.value = ValidationResult(true, null)
+        _validInputs.value = OperationResult(true, null)
     }
 
 

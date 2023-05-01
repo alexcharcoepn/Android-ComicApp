@@ -23,7 +23,7 @@ class SignUpManualFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        authViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
     }
 
     override fun onCreateView(
