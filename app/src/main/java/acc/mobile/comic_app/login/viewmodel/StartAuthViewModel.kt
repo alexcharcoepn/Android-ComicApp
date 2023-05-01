@@ -5,6 +5,7 @@ import acc.mobile.comic_app.areValuedStrings
 import acc.mobile.comic_app.isValidEmail
 import acc.mobile.comic_app.isValidPassword
 import acc.mobile.comic_app.login.data.OperationResult
+import acc.mobile.comic_app.repository.UserRepository
 import acc.mobile.comic_app.room.dao.UserDao
 import acc.mobile.comic_app.room.entity.User
 import android.content.Context
@@ -21,8 +22,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
-class StartAuthViewModel(private val userDao: UserDao) : ViewModel() {
+class StartAuthViewModel(userDao: UserDao) : ViewModel() {
     private val auth = Firebase.auth
+    private val userRepository = UserRepository(userDao)
+
     private lateinit var googleSignInClient: GoogleSignInClient
     val signInIntent: Intent
         get() = googleSignInClient.signInIntent
@@ -34,6 +37,20 @@ class StartAuthViewModel(private val userDao: UserDao) : ViewModel() {
     private val _authResult = MutableLiveData(OperationResult(false))
     val authResult: LiveData<OperationResult>
         get() = _authResult
+
+    init {
+        getUserFromRepository()
+    }
+
+    private fun getUserFromRepository(){
+        viewModelScope.launch {
+            try {
+                userRepository.refreshUserData()
+            }catch (e:Exception){
+                _authResult.value = OperationResult(false)
+            }
+        }
+    }
 
     fun configureGoogleSignInClient(context: Context) {
         this.googleSignInClient = GoogleSignIn.getClient(
@@ -67,7 +84,8 @@ class StartAuthViewModel(private val userDao: UserDao) : ViewModel() {
         .addOnSuccessListener {
             val newUser = User(userId = it.user!!.uid, email = it.user!!.email)
             viewModelScope.launch {
-                userDao.insert(newUser)
+                //TODO: change to use the repository instead of the DAO
+                //userDao.insert(newUser)
             }
             _authResult.value = OperationResult(true)
         }.addOnFailureListener {
